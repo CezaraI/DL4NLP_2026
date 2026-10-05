@@ -32,38 +32,32 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    """Run the interactive or command-line WordNet program."""
-
-    args = parse_args(argv)
+if __name__ == "__main__":
+    args = parse_args()
 
     if args.download_data:
         download_wordnet_data()
         print("WordNet data downloaded successfully.")
-        return 0
+        raise SystemExit(0)
 
     word = args.word
     if word is None:
         word = input("Enter a word: ")
 
     word = word.strip().lower()
+
     if not word:
         print("Please enter a word.")
-        return 0
+        raise SystemExit(0)
 
     try:
         relations: WordNetRelations = related_words(word)
     except RuntimeError as error:
         print(error)
-        return 1
+        raise SystemExit(1) from error
 
     if not relations["definitions"]:
         print(f"No WordNet entries found for '{word}'.")
-        return 0
+        raise SystemExit(0)
 
     print_relations(relations)
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
