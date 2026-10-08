@@ -1,38 +1,15 @@
-"""Reusable WordNet relation functions.
-
-Install the Python dependency with ``python -m pip install -r requirements.txt``
-and download the WordNet data before calling :func:`related_words`.
-"""
-
-from __future__ import annotations
-
-from typing import TypedDict
-
 import nltk
 from nltk.corpus import wordnet as wn
 
 
-class WordNetRelations(TypedDict):
-    """The relation categories returned for a word."""
-
-    synonyms: list[str]
-    hypernyms: list[str]
-    hyponyms: list[str]
-    antonyms: list[str]
-    meronyms: list[str]
-    definitions: list[str]
-
-
-def download_wordnet_data() -> None:
-    """Download the WordNet corpora used by this project."""
-
+def download_wordnet_data():
+    """Download the WordNet data used by the program."""
     nltk.download("wordnet")
     nltk.download("omw-1.4")
 
 
-def _load_wordnet() -> None:
-    """Ensure WordNet is available and provide a useful setup error."""
-
+def check_wordnet():
+    """Check whether the WordNet data is available."""
     try:
         wn.ensure_loaded()
     except LookupError as error:
@@ -42,75 +19,53 @@ def _load_wordnet() -> None:
         ) from error
 
 
-def _normalise_lemma(name: str) -> str:
-    """Convert WordNet lemma names into readable text."""
+def related_words(word: str) -> dict:
+    """Find WordNet relations for all senses of a word."""
+    check_wordnet()
 
-    return name.replace("_", " ")
+    # WordNet folosește caracterul _ pentru expresiile formate din mai multe cuvinte.
+    word = word.strip().lower().replace(" ", "_")
+    synsets = wn.synsets(word)
 
-
-def related_words(word: str) -> WordNetRelations:
-    """Return direct WordNet relations and definitions for ``word``.
-
-    The function combines all WordNet senses for the word. Hypernyms,
-    hyponyms, and meronyms are direct one-level relations, matching the
-    original notebook implementation.
-    """
-
-    _load_wordnet()
-
-    result: WordNetRelations = {
-        "synonyms": [],
-        "hypernyms": [],
-        "hyponyms": [],
-        "antonyms": [],
-        "meronyms": [],
-        "definitions": [],
-    }
-
-    # WordNet uses underscores for multiword lemmas.
-    lookup_word = word.strip().lower().replace(" ", "_")
-    synsets = wn.synsets(lookup_word)
-
-    synonyms: set[str] = set()
-    hypernyms: set[str] = set()
-    hyponyms: set[str] = set()
-    antonyms: set[str] = set()
-    meronyms: set[str] = set()
-    definitions: set[str] = set()
+    synonyms = set()
+    hypernyms = set()
+    hyponyms = set()
+    antonyms = set()
+    meronyms = set()
+    definitions = set()
 
     for synset in synsets:
         definitions.add(f"{synset.name()}: {synset.definition()}")
 
+        # Lemele unui synset reprezintă sinonimele lui.
         for lemma in synset.lemmas():
-            synonyms.add(_normalise_lemma(lemma.name()))
-            antonyms.update(
-                _normalise_lemma(antonym.name())
-                for antonym in lemma.antonyms()
-            )
+            synonyms.add(lemma.name().replace("_", " "))
 
+            # Unele sinonime au și antonime salvate în WordNet.
+            for antonym in lemma.antonyms():
+                antonyms.add(antonym.name().replace("_", " "))
+
+        # Hypernym = un concept mai general.
         for hypernym in synset.hypernyms():
-            hypernyms.update(
-                _normalise_lemma(lemma.name())
-                for lemma in hypernym.lemmas()
-            )
+            for lemma in hypernym.lemmas():
+                hypernyms.add(lemma.name().replace("_", " "))
 
+        # Hyponym = un concept mai specific.
         for hyponym in synset.hyponyms():
-            hyponyms.update(
-                _normalise_lemma(lemma.name())
-                for lemma in hyponym.lemmas()
-            )
+            for lemma in hyponym.lemmas():
+                hyponyms.add(lemma.name().replace("_", " "))
 
+        # Meronimele sunt părți, membri sau substanțe ale conceptului.
         meronym_relations = (
             synset.part_meronyms()
             + synset.member_meronyms()
             + synset.substance_meronyms()
         )
         for meronym in meronym_relations:
-            meronyms.update(
-                _normalise_lemma(lemma.name())
-                for lemma in meronym.lemmas()
-            )
+            for lemma in meronym.lemmas():
+                meronyms.add(lemma.name().replace("_", " "))
 
+    # Seturile elimină duplicatele, iar sorted() face afișarea ordonată.
     return {
         "synonyms": sorted(synonyms),
         "hypernyms": sorted(hypernyms),
@@ -121,13 +76,12 @@ def related_words(word: str) -> WordNetRelations:
     }
 
 
-def print_relations(relations: WordNetRelations) -> None:
-    """Print relation results in the same readable format as the notebook."""
-
+def print_relations(relations: dict):
+    """Print the results in an easy-to-read format."""
     for relation, words in relations.items():
         print(f"\n{relation.capitalize()}:")
         if words:
-            for item in words:
-                print(f"  - {item}")
+            for word in words:
+                print(f"  - {word}")
         else:
             print("  None")
