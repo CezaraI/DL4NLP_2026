@@ -1,0 +1,31 @@
+title,subject,"LSA (BoW, k=3)","LSA (TF-IDF, k=3)","LSA (BoW, k=5)","LSA (TF-IDF, k=5)"
+Solar power,green_energy,2,1,2,1
+Wind power,green_energy,2,1,2,1
+Hydroelectricity,green_energy,2,1,2,1
+Geothermal energy,green_energy,2,1,2,1
+Biofuel,green_energy,2,1,2,1
+Tidal power,green_energy,2,1,2,4
+Renewable energy,green_energy,2,1,2,1
+Wave power,green_energy,2,1,2,4
+Green hydrogen,green_energy,2,1,2,1
+Photovoltaics,green_energy,2,1,2,1
+Lion,animals,1,2,4,2
+Elephant,animals,0,2,4,2
+Blue whale,animals,1,2,1,2
+Gray wolf,animals,1,2,1,2
+Bald eagle,animals,1,2,1,2
+Giant panda,animals,1,2,3,2
+Tiger,animals,1,2,4,2
+Polar bear,animals,1,2,3,2
+Bottlenose dolphin,animals,1,2,1,2
+Gorilla,animals,0,2,0,2
+Roman Empire,roman_empire,0,0,0,0
+Augustus,roman_empire,0,0,0,0
+Nero,roman_empire,0,0,0,0
+Constantine the Great,roman_empire,0,0,0,0
+Trajan,roman_empire,0,0,0,3
+Hadrian,roman_empire,0,0,0,3
+Diocletian,roman_empire,0,0,0,0
+Marcus Aurelius,roman_empire,0,0,0,3
+Fall of the Western Roman Empire,roman_empire,0,0,0,0
+Roman army,roman_empire,0,0,0,0

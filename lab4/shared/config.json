@@ -1,0 +1,11 @@
+{
+  "random_state": 42,
+  "k_values": [
+    3,
+    5
+  ],
+  "n_top_words": 10,
+  "chunk_size": 100,
+  "min_df": 2,
+  "max_df": 0.7
+}
