@@ -1,0 +1,31 @@
+title,subject,"NMF (BoW, k=3)","NMF (TF-IDF, k=3)","NMF (BoW, k=5)","NMF (TF-IDF, k=5)","LDA (BoW, k=3)","LDA (TF-IDF, k=3)","LDA (BoW, k=5)","LDA (TF-IDF, k=5)"
+Solar power,green_energy,2,1,2,1,2,2,4,4
+Wind power,green_energy,2,1,2,4,2,2,4,4
+Hydroelectricity,green_energy,2,1,2,4,2,2,4,4
+Geothermal energy,green_energy,2,1,2,4,2,2,4,4
+Biofuel,green_energy,2,1,2,1,2,2,3,4
+Tidal power,green_energy,2,1,2,4,2,2,4,4
+Renewable energy,green_energy,2,1,2,1,2,2,4,4
+Wave power,green_energy,2,1,2,4,2,2,4,4
+Green hydrogen,green_energy,2,1,2,1,2,2,3,4
+Photovoltaics,green_energy,2,1,2,1,2,2,4,4
+Lion,animals,1,2,4,2,1,2,2,4
+Elephant,animals,1,2,4,2,1,1,1,4
+Blue whale,animals,1,2,4,2,1,1,1,4
+Gray wolf,animals,1,2,1,2,1,2,2,4
+Bald eagle,animals,1,2,4,2,1,0,2,4
+Giant panda,animals,1,2,3,2,1,0,2,4
+Tiger,animals,1,2,4,2,1,2,2,4
+Polar bear,animals,1,2,3,2,1,1,1,4
+Bottlenose dolphin,animals,1,2,4,2,1,2,1,4
+Gorilla,animals,1,2,4,2,1,2,2,4
+Roman Empire,roman_empire,0,0,0,0,0,0,0,4
+Augustus,roman_empire,0,0,0,0,0,0,0,4
+Nero,roman_empire,0,0,0,3,0,0,0,4
+Constantine the Great,roman_empire,0,0,0,0,0,0,0,4
+Trajan,roman_empire,0,0,0,3,0,0,0,4
+Hadrian,roman_empire,0,0,0,3,0,0,0,4
+Diocletian,roman_empire,0,0,0,0,0,0,0,4
+Marcus Aurelius,roman_empire,0,0,0,3,0,0,0,4
+Fall of the Western Roman Empire,roman_empire,0,0,0,0,0,0,0,4
+Roman army,roman_empire,0,0,0,0,0,0,0,4

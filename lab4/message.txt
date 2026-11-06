@@ -1,0 +1,39 @@
+cauDa, se poate. Singura dependență reală este Partea 1 (datele și matricile), pentru că tot restul pornește de acolo. Ca să o păstrați cât mai mică, propun ca persoana A să o facă prima și să exporte rezultatul într-un format fix, iar persoana B să înceapă în paralel pe un set de date fals, cu aceeași structură.
+
+Interfața comună (se stabilește la început, 10 minute)
+Un fișier cu coloanele title, text, subject și tokens (textul preprocesat).
+Matricile BoW și TF-IDF salvate, împreună cu vocabularul.
+Aceleași valori pentru k (3 și 5) și același random_state, ca rezultatele să fie comparabile.
+Persoana A: date + LSA
+Alegerea celor 3 domenii și descărcarea a 10 articole pentru fiecare.
+Preprocesarea: lowercase, tokenizare, lemmatizare, eliminarea stop-words.
+Construirea matricilor BoW și TF-IDF și exportul lor.
+LSA (TruncatedSVD) pe ambele matrici, pentru k=3 și k=5:
+top 10 cuvinte per topic;
+atribuirea documentelor la topicul cu cel mai mare scor absolut;
+scatter plot-uri pentru cuvinte și documente;
+scoruri de coerență Gensim.
+Persoana B: NMF + LDA
+NMF și LDA pe ambele matrici, pentru k=3 și k=5:
+top 10 cuvinte per topic;
+atribuirea documentelor la topicul dominant;
+verificarea dacă documentele din același domeniu sunt grupate;
+scatter plot-uri pentru cuvinte și documente;
+scoruri de coerență Gensim.
+
+Pentru partea Gensim aveți nevoie doar de textul tokenizat și de dicționar, deci B depinde de A doar prin fișierul de date.
+
+Partea 4 (analiza comparativă)
+
+Fiecare scrie răspunsurile la cele 5 întrebări doar pentru metodele proprii. Apoi vă întâlniți ~30 de minute pentru comparația finală:
+
+Q1 (BoW vs TF-IDF): A și B comentează fiecare metodele lor, iar voi unificați.
+Q2 (cea mai interpretabilă metodă): decideți împreună.
+Q3 (Cv mare vs topicuri utile): A și B dau exemple din rezultatele lor.
+Q4 (efectul lui k): fiecare analizează k=3 vs k=5 pe metodele proprii.
+Q5 (corespondența cu cele 3 domenii): idem, apoi o concluzie comună.
+Notă despre echilibru
+
+A are mai puțină muncă de modelare (un singur model), dar și pregătirea datelor, care e partea cu cele mai multe surprize (API Wikipedia, articole ambigue, lemmatizare). B are două modele, dar pe date deja gata. Per total ar trebui să fie aproximativ egal. Dacă vi se pare dezechilibrat, puteți muta coerența Gensim a LSA la B.
+
+Vrei să detaliez și un plan pe zile sau ore
